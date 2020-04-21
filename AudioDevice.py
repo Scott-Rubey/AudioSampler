@@ -43,17 +43,28 @@ class Util:
     def recSampleMenu(self):
         menuOption = 0
 
-        while(1 > menuOption or 6 < menuOption):
+        while(1 > menuOption or 3 < menuOption):
             print("\nSampling Menu:\n")
             print("1 - Start recording")
-            print("2 - Preview sample")
-            print("3 - Save sample")
-            print("4 - Discard sample")
-            print("5 - Play sample with MIDI device")
-            print("6 - Return to Main Menu")
+            print("2 - Play sample with MIDI device")
+            print("3 - Return to Main Menu")
 
             menuOption = int(input("\nEnter menu option here: "))
-            if(1 > menuOption or 6 < menuOption):
+            if(1 > menuOption or 3 < menuOption):
+                print("\n***Option out of range***")
+
+        return menuOption
+
+    def newSampleMenu(self):
+        menuOption = 0
+
+        while(1 > menuOption or 3 < menuOption):
+            print("1 - Preview sample")
+            print("2 - Save sample")
+            print("3 - Discard sample")
+
+            menuOption = int(input("\nEnter menu option here: "))
+            if(1 > menuOption or 3 < menuOption):
                 print("\n***Option out of range***")
 
         return menuOption
@@ -62,7 +73,7 @@ class Util:
         menuOption = 0
 
         while(1 > menuOption or 4 < menuOption):
-            print("\nMain Menu:\n")
+            print("\nSample Library:\n")
             print("1 - Display sample list")
             print("2 - Select sample")
             print("3 - Delete sample")
@@ -78,7 +89,6 @@ class Util:
         menuOption = 0
 
         while(1 > menuOption or 4 < menuOption):
-            print("\nMain Menu:\n")
             print("1 - Preview current sample")
             print("2 - Load current sample")
             print("3 - Delete current sample")
