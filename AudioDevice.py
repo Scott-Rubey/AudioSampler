@@ -50,9 +50,42 @@ class Util:
             print("3 - Save sample")
             print("4 - Discard sample")
             print("5 - Play sample with MIDI device")
+            print("6 - Return to Main Menu")
 
             menuOption = int(input("\nEnter menu option here: "))
             if(1 > menuOption or 6 < menuOption):
+                print("\n***Option out of range***")
+
+        return menuOption
+
+    def sampleLibMenu(self):
+        menuOption = 0
+
+        while(1 > menuOption or 4 < menuOption):
+            print("\nMain Menu:\n")
+            print("1 - Display sample list")
+            print("2 - Select sample")
+            print("3 - Delete sample")
+            print("4 - Return to Main Menu")
+
+            menuOption = int(input("\nEnter menu option here: "))
+            if(1 > menuOption or 4 < menuOption):
+                print("\n***Option out of range***")
+
+        return menuOption
+
+    def selectSampleMenu(self):
+        menuOption = 0
+
+        while(1 > menuOption or 4 < menuOption):
+            print("\nMain Menu:\n")
+            print("1 - Preview current sample")
+            print("2 - Load current sample")
+            print("3 - Delete current sample")
+            print("4 - Return to previous menu")
+
+            menuOption = int(input("\nEnter menu option here: "))
+            if(1 > menuOption or 4 < menuOption):
                 print("\n***Option out of range***")
 
         return menuOption
