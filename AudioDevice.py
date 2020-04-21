@@ -11,7 +11,7 @@ class AudioDevice:
 
         recording = sd.rec(int(seconds * self.sampleRate),
                            samplerate = self.sampleRate, channels = self.channels)
-        print('Recording...')
+        print('\nRecording...')
         sd.wait()
         write('SampleLibrary/sample.wav', self.sampleRate, recording)
 
@@ -59,7 +59,7 @@ class Util:
         menuOption = 0
 
         while(1 > menuOption or 3 < menuOption):
-            print("1 - Preview sample")
+            print("\n1 - Preview sample")
             print("2 - Save sample")
             print("3 - Discard sample")
 
@@ -89,7 +89,7 @@ class Util:
         menuOption = 0
 
         while(1 > menuOption or 4 < menuOption):
-            print("1 - Preview current sample")
+            print("\n1 - Preview current sample")
             print("2 - Load current sample")
             print("3 - Delete current sample")
             print("4 - Return to previous menu")
