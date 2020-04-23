@@ -1,16 +1,19 @@
 import os
 
 class sampLib():
+    lib = []
+    path = 'SampleLibrary'
+
+    def __init__(self):
+        #build array of samples in the library
+        for root, dir, files in os.walk(self.path):
+            for f in files:
+                self.lib.append(f)
+
     def dispSamples(self):
-        path = '/Users/srubey/PycharmProjects/CS510Sound/Project/SampleLibrary/'
-        files = []
-        count = 1
+        print("\n", "\u0332".join("Sample Library"))
+        for i in range(len(self.lib)):
+            print(i,':', self.lib[i])
 
-        for r, d, f in os.walk(path):
-            for file in f:
-                if '.wav' in file:
-                    files.append(file)
-
-        for f in files:
-            print(count,':', f)
-            count += 1
+    def getFilename(self, i):
+        return self.lib[i]

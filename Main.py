@@ -42,7 +42,7 @@ def main():
 
                 #if user chooses to play the recorded sample with a MIDI device
                 elif(2 == samplingChoice):
-                    print("\nLoading to MIDI device")
+                    print("\n***Loading to MIDI device***")
 
                 samplingChoice = menu.recSampleMenu()
 
@@ -56,11 +56,12 @@ def main():
                 #if user chooses to display a list of all available samples
                 if(1 == libraryChoice):
                     library.dispSamples()
-                    #print("\nDisplay sample names")
 
                 #if user chooses to select a particular sample from the library
                 elif(2 == libraryChoice):
-                    print("\nSelect a sample from the library -- input number? input string?")
+                    sampNum = int(input("Enter sample number: "))
+                    filename = library.getFilename(sampNum)
+                    print('\n***"' + str(filename) + '" selected***')
 
                     #once a sample is selected from the library...
                     selectedSampleChoice = menu.selectSampleMenu()

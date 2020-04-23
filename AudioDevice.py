@@ -89,7 +89,7 @@ class Util:
         menuOption = 0
 
         while(1 > menuOption or 4 < menuOption):
-            print("\nSample Library:\n")
+            print("\nSample Library Menu:\n")
             print("1 - Display sample list")
             print("2 - Select sample")
             print("3 - Delete sample")
