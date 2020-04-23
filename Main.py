@@ -1,8 +1,10 @@
 from AudioDevice import AudioDevice, Util
+from SampLib import sampLib
 
 def main():
     audio = AudioDevice()
     menu = Util()
+    library = sampLib()
 
     choice = menu.mainMenu()
 
@@ -53,7 +55,8 @@ def main():
 
                 #if user chooses to display a list of all available samples
                 if(1 == libraryChoice):
-                    print("\nDisplay sample names")
+                    library.dispSamples()
+                    #print("\nDisplay sample names")
 
                 #if user chooses to select a particular sample from the library
                 elif(2 == libraryChoice):
