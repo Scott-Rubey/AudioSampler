@@ -22,23 +22,18 @@ def main():
                         audio.record()
                         sampleActionChoice = menu.newSampleMenu()
 
-                        #while user simply wants to preview their recorded sample
-                        #(saving or discarding will return user to the prior menu)
+                        #if user chooses to preview the recorded sample
                         while(1 == sampleActionChoice):
-
-                            #if user chooses to preview the recorded sample
-                            if(1 == sampleActionChoice):
-                                print("\nPreviewing sample")
-
-                            #if user chooses to save the sample
-                            elif(2 == sampleActionChoice):
-                                print("\nSaving sample")
-
-                            #if user chooses to discard the sample
-                            elif(3 == sampleActionChoice):
-                                print("\nDiscarding sample")
-
+                            print("\nPreviewing sample")
                             sampleActionChoice = menu.newSampleMenu()
+
+                        #if user chooses to save the sample
+                        if(2 == sampleActionChoice):
+                            print("\nSaving sample")
+
+                        #if user chooses to discard the sample
+                        elif(3 == sampleActionChoice):
+                            print("\nDiscarding sample")
 
                     #if user chooses to play the recorded sample with a MIDI device
                     elif(2 == samplingChoice):
