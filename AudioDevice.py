@@ -1,18 +1,31 @@
 import sounddevice as sd
 import soundfile as sf
 from scipy.io.wavfile import write
+import time
+import numpy as np
+import sys
 
 class AudioDevice:
     sampleRate = 48000
     channels = 1
 
     def record(self):
-        seconds = 2
+        def countdown(sec):
+            while(sec > 0):
+                print(sec, end = '\n')
+                time.sleep(1)
+                sec -= 1
 
-        recording = sd.rec(int(seconds * self.sampleRate),
+        countdown(3)
+
+        duration = 2
+        recording = sd.rec(int(duration * self.sampleRate), dtype = 'int16',
                            samplerate = self.sampleRate, channels = self.channels)
-        print('\nRecording...')
+        print('\n***Recording***')
         sd.wait()
+
+        #normalize the sample
+        recording = recording /  np.max(np.abs(recording), axis = 0)
         write('SampleLibrary/sample.wav', self.sampleRate, recording)
 
     def play(self, filename):

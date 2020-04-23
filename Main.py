@@ -3,7 +3,6 @@ from AudioDevice import AudioDevice, Util
 def main():
     audio = AudioDevice()
     menu = Util()
-#    audio.play('SampleLibrary/sample.wav')
 
     choice = menu.mainMenu()
 
@@ -24,6 +23,7 @@ def main():
 
                         #if user chooses to preview the recorded sample
                         while(1 == sampleActionChoice):
+                            audio.play('SampleLibrary/sample.wav')
                             print("\nPreviewing sample")
                             sampleActionChoice = menu.newSampleMenu()
 
