@@ -16,30 +16,30 @@ def main():
             #while user chooses not to exit the sample recording menu
             while(3 != samplingChoice):
 
-                    #if user chooses to record a sample
-                    if(1 == samplingChoice):
-                        audio.record()
+                #if user chooses to record a sample
+                if(1 == samplingChoice):
+                    audio.record()
+                    sampleActionChoice = menu.newSampleMenu()
+
+                    #if user chooses to preview the recorded sample
+                    while(1 == sampleActionChoice):
+                        audio.play('SampleLibrary/sample.wav')
+                        print("\nPreviewing sample")
                         sampleActionChoice = menu.newSampleMenu()
 
-                        #if user chooses to preview the recorded sample
-                        while(1 == sampleActionChoice):
-                            audio.play('SampleLibrary/sample.wav')
-                            print("\nPreviewing sample")
-                            sampleActionChoice = menu.newSampleMenu()
+                    #if user chooses to save the sample
+                    if(2 == sampleActionChoice):
+                        print("\nSaving sample")
 
-                        #if user chooses to save the sample
-                        if(2 == sampleActionChoice):
-                            print("\nSaving sample")
+                    #if user chooses to discard the sample
+                    elif(3 == sampleActionChoice):
+                        print("\nDiscarding sample")
 
-                        #if user chooses to discard the sample
-                        elif(3 == sampleActionChoice):
-                            print("\nDiscarding sample")
+                #if user chooses to play the recorded sample with a MIDI device
+                elif(2 == samplingChoice):
+                    print("\nLoading to MIDI device")
 
-                    #if user chooses to play the recorded sample with a MIDI device
-                    elif(2 == samplingChoice):
-                        print("\nLoading to MIDI device")
-
-                    samplingChoice = menu.recSampleMenu()
+                samplingChoice = menu.recSampleMenu()
 
         #if user chooses to view Sample Library options
         if(2 == choice):

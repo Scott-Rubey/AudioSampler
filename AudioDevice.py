@@ -19,14 +19,15 @@ class AudioDevice:
         countdown(3)
 
         duration = 2
-        recording = sd.rec(int(duration * self.sampleRate), dtype = 'int16',
+        audioSamp = sd.rec(int(duration * self.sampleRate), dtype = 'int16',
                            samplerate = self.sampleRate, channels = self.channels)
         print('\n***Recording***')
         sd.wait()
 
         #normalize the sample
-        recording = recording /  np.max(np.abs(recording), axis = 0)
-        write('SampleLibrary/sample.wav', self.sampleRate, recording)
+        audioSamp = audioSamp /  np.max(np.abs(audioSamp), axis = 0)
+#        write('SampleLibrary/sample.wav', self.sampleRate, audioSamp)
+        return audioSamp
 
     def play(self, filename):
         audioSample, sRate = AudioDevice.load(self, filename)
