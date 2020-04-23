@@ -15,25 +15,28 @@ def main():
 
             #while user chooses not to exit the sample recording menu
             while(3 != samplingChoice):
+                sample = None
 
                 #if user chooses to record a sample
                 if(1 == samplingChoice):
-                    audio.record()
+                    sample = audio.record()
                     sampleActionChoice = menu.newSampleMenu()
 
                     #if user chooses to preview the recorded sample
                     while(1 == sampleActionChoice):
-                        audio.play('SampleLibrary/sample.wav')
-                        print("\nPreviewing sample")
+                        audio.play(sample)
                         sampleActionChoice = menu.newSampleMenu()
 
                     #if user chooses to save the sample
                     if(2 == sampleActionChoice):
-                        print("\nSaving sample")
+                        filename = input("Save as: ")
+                        audio.save(sample, filename)
+                        print("\n***Saved***")
 
                     #if user chooses to discard the sample
                     elif(3 == sampleActionChoice):
-                        print("\nDiscarding sample")
+                        sample = None
+                        print("\n***Sample discarded***")
 
                 #if user chooses to play the recorded sample with a MIDI device
                 elif(2 == samplingChoice):

@@ -3,7 +3,6 @@ import soundfile as sf
 from scipy.io.wavfile import write
 import time
 import numpy as np
-import sys
 
 class AudioDevice:
     sampleRate = 48000
@@ -25,14 +24,17 @@ class AudioDevice:
         sd.wait()
 
         #normalize the sample
-        audioSamp = audioSamp /  np.max(np.abs(audioSamp), axis = 0)
-#        write('SampleLibrary/sample.wav', self.sampleRate, audioSamp)
+        audioSamp = audioSamp / np.max(np.abs(audioSamp), axis = 0)
+
         return audioSamp
 
-    def play(self, filename):
-        audioSample, sRate = AudioDevice.load(self, filename)
-        sd.play(audioSample, sRate)
-        status = sd.wait()
+    def play(self, sample):
+        sd.play(sample, self.sampleRate)
+        sd.wait()
+
+    def save(self, sample, filename):
+        fullFileName = 'SampleLibrary/' + filename + '.wav'
+        write(fullFileName, self.sampleRate, sample)
 
     def load(self, filename):
         audioSample, sRate = sf.read(filename)
