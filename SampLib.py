@@ -23,7 +23,8 @@ class sampLib():
         return self.lib[i]
 
     def addSample(self, file):
-        self.lib = np.append(self.lib, file)
+        fullFileName = file + '.wav'
+        self.lib = np.append(self.lib, fullFileName)
 
     def delSample(self, i):
         #delete file from disk directory
