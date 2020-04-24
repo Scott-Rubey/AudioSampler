@@ -71,15 +71,18 @@ def main():
 
                         #if the user chooses to preview the selected sample
                         if(1 == selectedSampleChoice):
-                            print("\nPreview the selected sample")
+                            sample, rate = audio.load(filename)
+                            audio.play(sample)
 
                         #if the user chooses to load the selected sample to MIDI device
                         elif(2 == selectedSampleChoice):
-                            print("\nLoad the selected sample")
+                            sample, rate = audio.load(filename)
+                            print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample
                         elif(3 == selectedSampleChoice):
-                            print("\nDelete the selected sample")
+                            library.delSample(sampNum)
+                            print("\n***Sample deleted from library***")
 
                         selectedSampleChoice = menu.selectSampleMenu()
 

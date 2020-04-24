@@ -37,7 +37,7 @@ class AudioDevice:
         write(fullFileName, self.sampleRate, sample)
 
     def load(self, filename):
-        audioSample, sRate = sf.read(filename)
+        audioSample, sRate = sf.read('SampleLibrary/' + filename)
         return audioSample, sRate
 
 class Util:

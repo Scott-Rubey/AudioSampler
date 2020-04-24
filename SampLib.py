@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 class sampLib():
     lib = []
@@ -10,6 +11,9 @@ class sampLib():
             for f in files:
                 self.lib.append(f)
 
+        #convert to a numpy array
+        self.lib = np.asarray(self.lib)
+
     def dispSamples(self):
         print("\n", "\u0332".join("Sample Library"))
         for i in range(len(self.lib)):
@@ -17,3 +21,6 @@ class sampLib():
 
     def getFilename(self, i):
         return self.lib[i]
+
+    def delSample(self, i):
+        self.lib = np.delete(self.lib, i)
