@@ -11,7 +11,7 @@ class sampLib():
             for f in files:
                 self.lib.append(f)
 
-        #convert to a numpy array
+        #convert to a numpy array for easy add/delete
         self.lib = np.asarray(self.lib)
 
     def dispSamples(self):
@@ -23,7 +23,7 @@ class sampLib():
         return self.lib[i]
 
     def addSample(self, file):
-        self.lib = np.add()
+        self.lib = np.append(self.lib, file)
 
     def delSample(self, i):
         #delete file from disk directory

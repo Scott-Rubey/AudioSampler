@@ -33,6 +33,7 @@ def main():
                     if(2 == sampleActionChoice):
                         filename = input("Save as: ")
                         audio.save(sample, filename)
+                        library.addSample(filename)
                         print("\n***Saved***")
 
                     #if user chooses to discard the sample
