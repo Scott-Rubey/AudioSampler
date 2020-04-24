@@ -3,7 +3,7 @@ import numpy as np
 
 class sampLib():
     lib = []
-    path = 'SampleLibrary'
+    path = 'SampleLibrary/'
 
     def __init__(self):
         #build array of samples in the library
@@ -26,4 +26,8 @@ class sampLib():
         self.lib = np.add()
 
     def delSample(self, i):
+        #delete file from disk directory
+        os.remove(self.path + self.lib[i])
+
+        #delete from in-memory sample library
         self.lib = np.delete(self.lib, i)

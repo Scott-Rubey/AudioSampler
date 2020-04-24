@@ -77,18 +77,20 @@ def main():
                         #if the user chooses to load the selected sample to MIDI device
                         elif(2 == selectedSampleChoice):
                             sample, rate = audio.load(filename)
+                            #***TBD***
                             print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample
                         elif(3 == selectedSampleChoice):
                             library.delSample(sampNum)
                             print("\n***Sample deleted from library***")
+                            sample = None
 
                         selectedSampleChoice = menu.selectSampleMenu()
 
                 #if user chooses to delete a particular sample
                 elif(3 == libraryChoice):
-                    sampNum = int(input("Enter number of sample to be deleted: "))
+                    sampNum = int(input("\nEnter number of sample to be deleted: "))
                     library.delSample(sampNum)
                     print("\n***Sample deleted from library***")
 
