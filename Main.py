@@ -88,7 +88,9 @@ def main():
 
                 #if user chooses to delete a particular sample
                 elif(3 == libraryChoice):
-                    print("\nSelect a sample to delete -- input number? input string?")
+                    sampNum = int(input("Enter number of sample to be deleted: "))
+                    library.delSample(sampNum)
+                    print("\n***Sample deleted from library***")
 
                 libraryChoice = menu.sampleLibMenu()
 

@@ -22,5 +22,8 @@ class sampLib():
     def getFilename(self, i):
         return self.lib[i]
 
+    def addSample(self, file):
+        self.lib = np.add()
+
     def delSample(self, i):
         self.lib = np.delete(self.lib, i)
