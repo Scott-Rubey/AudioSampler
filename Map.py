@@ -6,6 +6,10 @@ class Map():
     midiHigh = 108
 
     def __init__(self, startNote):
+        self.startNote = startNote
+        self.startFreq = Map.setStartFreq(self, self.startNote)
+
+    def setStartFreq(self, startNote):
         #difference between input note and A440, which maps to 69 on a MIDI keyboard
         noteDiff = startNote - self.midiA
         startFreq = 440 * (2**(noteDiff / 12))
@@ -13,3 +17,4 @@ class Map():
         #sanity check
         print("The starting frequency is: ", startFreq)
 
+        return startFreq
