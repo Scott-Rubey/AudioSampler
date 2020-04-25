@@ -106,7 +106,7 @@ class Util:
 
         while(1 > menuOption or 4 < menuOption):
             print("\n1 - Preview current sample")
-            print("2 - Load current sample")
+            print("2 - Load current sample to MIDI device")
             print("3 - Delete current sample")
             print("4 - Return to previous menu")
 
