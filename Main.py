@@ -86,6 +86,7 @@ def main():
                             newSample = midiMap.pitchshift(12)
                             audio.play(sample)
                             audio.play(newSample)
+                            audio.save(newSample, 'test')
                             print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample

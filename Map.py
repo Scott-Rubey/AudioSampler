@@ -1,4 +1,5 @@
 import numpy as np
+import pyrubberband as rb
 
 class Map():
     sample = None
@@ -25,23 +26,20 @@ class Map():
 
         return startFreq
 
-    def mapSample(self, shift):
-        sample_fft = np.fft.rfft(self.sample)
-#        freqs = np.abs(sample_fft)
+#pitch shifter implementation used under creative commons license via
+#https://github.com/Zulko/pianoputer/blob/master/pianoputer.py
+#and adapted for the intended use
 
-        newSamp = np.fft.irfft(sample_fft)
-
-        return newSamp
-
-
-#start pianoputer
+    #changes frequency
     def speedx(self, stretched, factor):
         """ Speeds up / slows down a sound, by some factor. """
-        indices = np.round(np.arange(0, len(self.sample), factor))
-        indices = indices[indices < len(self.sample)].astype(int)
-        return self.sample[indices]
+        indices = np.round(np.arange(0, len(stretched), factor))
+        indices = indices[indices < len(stretched)].astype(int)
+
+        return stretched[indices]
 
 
+    #stretches the sample at the same pitch in the time domain
     def stretch(self, factor, window_size, h):
         """ Stretches/shortens a sound, by some factor. """
         phase = np.zeros(window_size)
@@ -70,9 +68,11 @@ class Map():
 
         return result.astype('int16')
 
+
     def pitchshift(self, n, window_size=2**13, h=2**11):
         """ Changes the pitch of a sound by ``n`` semitones. """
         factor = 2**(1.0 * n / 12.0)
+
         stretched = Map.stretch(self, 1.0/factor, window_size, h)
         return Map.speedx(self, stretched[window_size:], factor)
 #end pianoputer
