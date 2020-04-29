@@ -82,7 +82,10 @@ def main():
                         elif(2 == selectedSampleChoice):
                             sample, rate = audio.load(filename)
                             startNote = int(input("Press key to map sample to: "))
-                            midiMap = Map(startNote)
+                            midiMap = Map(startNote, sample, rate)
+                            newSample = midiMap.pitchshift(12)
+                            audio.play(sample)
+                            audio.play(newSample)
                             print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample
