@@ -14,33 +14,41 @@ import numpy as np
 
 
     #stretches the sample at the same pitch in the time domain
-    def stretch(self, factor, window_size, h):
-        """ Stretches/shortens a sound, by some factor. """
-        phase = np.zeros(window_size)
-        hanning_window = np.hanning(window_size)
-        result = np.zeros(int(len(self.sample) / factor + window_size))
+    def stretch(self, factor, winSize, h):
+        #stretches/shortens sample by factor
+        phase = np.zeros(winSize)
+        hanWin = np.hanning(winSize)
+        result = np.zeros(int(len(self.sample) / factor + winSize))
 
-        for i in np.arange(0, len(self.sample) - (window_size + h), h*factor):
+        for i in np.arange(0, len(self.sample) - (winSize + h), h * factor):
             i = int(i)
-            # Two potentially overlapping subarrays
-            a1 = self.sample[i: i + window_size]
-            a2 = self.sample[i + h: i + window_size + h]
 
-            # The spectra of these arrays
-            s1 = np.fft.fft(hanning_window * a1)
-            s2 = np.fft.fft(hanning_window * a2)
+            #two potentially overlapping subarrays
+            sub1 = self.sample[i: i + winSize]
+            sub2 = self.sample[i + h: i + winSize + h]
 
-            # Rephase all frequencies
-            phase = (phase + np.angle(s2/s1)) % 2*np.pi
+            #calculate the fft of each subarray
+            fft1 = np.fft.fft(hanWin * sub1)
+            fft2 = np.fft.fft(hanWin * sub2)
 
-            a2_rephased = np.fft.ifft(np.abs(s2)*np.exp(1j*phase))
+            #make sure frequencies are in phase
+            phase = (phase + np.angle(fft2/fft1)) % 2 * np.pi
+
+            sub2phase = np.fft.ifft(np.abs(fft2) * np.exp(1j * phase))
             i2 = int(i/factor)
-            result[i2: i2 + window_size] += hanning_window*a2_rephased.real
+            result[i2: i2 + winSize] += hanWin * sub2phase.real
 
-        # normalize (16bit)
-        result = ((2**(16-4)) * result/result.max())
+        #rescale for 16-bit
+        result = ((2**12) * result/result.max())
 
         return result.astype('int16')
+
+    def pitchshift(snd_array, n, window_size=2 ** 13, h=2 ** 11):
+        """ Changes the pitch of a sound by ``n`` semitones. """
+        factor = 2 ** (1.0 * n / 12.0)
+        stretched = stretch(snd_array, 1.0 / factor, window_size, h)
+        return pitch(stretched[window_size:], factor)
+    #end pianoputer version
 
     #start jupyter notebook version
     def win_taper(N, a):
