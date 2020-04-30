@@ -45,7 +45,10 @@ def main():
                 #if user chooses to play the recorded sample with a MIDI device
                 elif(2 == samplingChoice):
                     startNote = int(input("Press key to map sample to: "))
-                    midiMap = Map(startNote)
+                    midiMap = Map(startNote, sample, rate)
+                    newSample = midiMap.pitchshift(64)
+                    audio.play(sample)
+                    audio.play(newSample)
                     print("\n***Sample loaded***")
 
                 samplingChoice = menu.recSampleMenu()
@@ -83,10 +86,9 @@ def main():
                             sample, rate = audio.load(filename)
                             startNote = int(input("Press key to map sample to: "))
                             midiMap = Map(startNote, sample, rate)
-                            newSample = midiMap.pitchshift(88)
+                            newSample = midiMap.pitchshift(73)
                             audio.play(sample)
                             audio.play(newSample)
-                            audio.save(newSample, 'test')
                             print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample

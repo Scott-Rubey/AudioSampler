@@ -22,10 +22,11 @@ class Map():
         startFreq = 440 * (2**(noteDiff / 12))
 
         #sanity check
-        print("The starting frequency is: ", startFreq)
+        #print("The starting frequency is: ", startFreq)
 
         return startFreq
 
     def pitchshift(self, n):
         note = n - self.startNote
         return lr.effects.pitch_shift(self.sample, 48000, note)
+
