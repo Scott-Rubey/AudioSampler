@@ -83,7 +83,7 @@ def main():
                             sample, rate = audio.load(filename)
                             startNote = int(input("Press key to map sample to: "))
                             midiMap = Map(startNote, sample, rate)
-                            newSample = midiMap.pitchshift(12)
+                            newSample = midiMap.pitchshift(88)
                             audio.play(sample)
                             audio.play(newSample)
                             audio.save(newSample, 'test')
