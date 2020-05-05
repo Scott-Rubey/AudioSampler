@@ -46,6 +46,7 @@ def main():
 
                 #if user chooses to play the recorded sample with a MIDI device
                 elif(2 == samplingChoice):
+                    rate, sample = audio.load(filename)
                     midiIn, midiOut = midiDevice.midiSetup()
                     midiDevice.playMIDI(midiIn, midiOut)
                     startNote = int(input("Press key to map sample to: "))
@@ -83,12 +84,12 @@ def main():
 
                         #if the user chooses to preview the selected sample
                         if(1 == selectedSampleChoice):
-                            sample, rate = audio.load(filename)
+                            rate, sample = audio.load(filename)
                             audio.play(sample)
 
                         #if the user chooses to load the selected sample to MIDI device
                         elif(2 == selectedSampleChoice):
-                            sample, rate = audio.load(filename)
+                            rate, sample = audio.load(filename)
                             midiIn, midiOut = midiDevice.midiSetup()
                             startNote = int(input("Press key to map sample to: "))
                             midiMap = Map(startNote, sample, rate)

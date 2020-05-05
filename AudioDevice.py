@@ -1,6 +1,5 @@
 import sounddevice as sd
-import soundfile as sf
-from scipy.io.wavfile import write
+from scipy.io.wavfile import write, read
 import time
 import numpy as np
 
@@ -37,8 +36,8 @@ class AudioDevice:
         write(fullFileName, self.sampleRate, sample)
 
     def load(self, filename):
-        audioSample, sRate = sf.read('SampleLibrary/' + filename)
-        return audioSample, sRate
+        sRate, audioSample = read('SampleLibrary/' + filename)
+        return sRate, audioSample
 
 class Util:
     def mainMenu(self):
