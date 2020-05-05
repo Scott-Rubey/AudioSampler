@@ -1,11 +1,13 @@
 from AudioDevice import AudioDevice, Util
 from SampLib import sampLib
 from Map import Map
+from MIDIdevice import MIDIdevice
 
 def main():
     audio = AudioDevice()
     menu = Util()
     library = sampLib()
+    midiDevice = MIDIdevice()
 
     choice = menu.mainMenu()
 
@@ -44,11 +46,14 @@ def main():
 
                 #if user chooses to play the recorded sample with a MIDI device
                 elif(2 == samplingChoice):
+                    midiIn, midiOut = midiDevice.midiSetup()
+                    midiDevice.playMIDI(midiIn, midiOut)
                     startNote = int(input("Press key to map sample to: "))
                     midiMap = Map(startNote, sample, rate)
                     newSample = midiMap.pitchshift(64)
-                    audio.play(sample)
-                    audio.play(newSample)
+                    #sanity check
+                    #audio.play(sample)
+                    #audio.play(newSample)
                     print("\n***Sample loaded***")
 
                 samplingChoice = menu.recSampleMenu()
@@ -84,11 +89,14 @@ def main():
                         #if the user chooses to load the selected sample to MIDI device
                         elif(2 == selectedSampleChoice):
                             sample, rate = audio.load(filename)
+                            midiIn, midiOut = midiDevice.midiSetup()
                             startNote = int(input("Press key to map sample to: "))
                             midiMap = Map(startNote, sample, rate)
-                            newSample = midiMap.pitchshift(73)
-                            audio.play(sample)
-                            audio.play(newSample)
+                            midiDevice.playMIDI(midiIn, midiOut)
+                            newSample = midiMap.pitchshift(88)
+                            #sanity check
+                            #audio.play(sample)
+                            #audio.play(newSample)
                             print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample
