@@ -42,7 +42,7 @@ class MIDIdevice:
                     if message[2] != 0:  # sending note on event:
                         midiout.send_message(message)
                         # ### sanity check to confirm input
-                        #print(message, deltatime)
+                        print(message, deltatime)
 
                     else:  # sending note off event:
                         message[0] = 128
@@ -62,14 +62,15 @@ class MIDIdevice:
 
     def getStartNote(self, midiin, midiout):
         message = [0]
+        received = False
 
-        while True:
-            temp = message[0]
+        while not received:
+            temp = message[0]  #keeps message variable in scope
             msg = midiin.get_message()
             if msg:
                 message, deltatime = msg
                 midiout.send_message(message)
-                break
+                received = True
 
         startNote = message[1]
 

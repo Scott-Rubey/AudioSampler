@@ -100,7 +100,7 @@ def main():
                             print("\n StartNote: MIDI note", startNote)
                             midiMap = Map(startNote, sample, rate)
                             midiDevice.playMIDI(midiIn, midiOut)
-                            newSample = midiMap.pitchshift(88)
+                            #newSample = midiMap.pitchshift(88)
                             #sanity check
                             #audio.play(sample)
                             #audio.play(newSample)
