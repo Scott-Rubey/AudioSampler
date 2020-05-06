@@ -97,7 +97,7 @@ def main():
                             midiIn, midiOut = midiDevice.midiSetup()
                             print("Press key to map sample to: ")
                             startNote = midiDevice.getStartNote(midiIn, midiOut)
-                            print("\n StartNote: ", startNote[1])
+                            print("\n StartNote: MIDI note", startNote)
                             midiMap = Map(startNote, sample, rate)
                             midiDevice.playMIDI(midiIn, midiOut)
                             newSample = midiMap.pitchshift(88)
