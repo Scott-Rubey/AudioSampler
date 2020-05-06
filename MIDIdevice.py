@@ -60,6 +60,21 @@ class MIDIdevice:
             del midiin
             del midiout
 
+    def getStartNote(self, midiin, midiout):
+        message = [0]
+        time.sleep(4)
+        msg = midiin.get_message()
+        if msg:
+            message, deltatime = msg
+            midiout.send_message(message)
+
+        startNote = message[1]
+
+        #make sure we don't have a residual note-on message
+        message[0] = 128
+        midiout.send_message(message)
+
+        return startNote
 
 """ # Main for testing purposes 
 if __name__ == "__main__":

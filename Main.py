@@ -2,6 +2,7 @@ from AudioDevice import AudioDevice, Util
 from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice
+import time
 
 def main():
     audio = AudioDevice()
@@ -49,7 +50,10 @@ def main():
                     rate, sample = audio.load(filename)
                     midiIn, midiOut = midiDevice.midiSetup()
                     midiDevice.playMIDI(midiIn, midiOut)
-                    startNote = int(input("Press key to map sample to: "))
+                    print("Press key to map sample to: ")
+                    startNote = midiDevice.getStartNote(midiIn, midiOut)
+                    print("Start note: ", startNote[0])
+                    #startNote = int(input("Press key to map sample to: "))
                     midiMap = Map(startNote, sample, rate)
                     newSample = midiMap.pitchshift(64)
                     #sanity check
@@ -91,7 +95,9 @@ def main():
                         elif(2 == selectedSampleChoice):
                             rate, sample = audio.load(filename)
                             midiIn, midiOut = midiDevice.midiSetup()
-                            startNote = int(input("Press key to map sample to: "))
+                            print("Press key to map sample to: ")
+                            startNote = midiDevice.getStartNote(midiIn, midiOut)
+                            print("\n StartNote: ", startNote[1])
                             midiMap = Map(startNote, sample, rate)
                             midiDevice.playMIDI(midiIn, midiOut)
                             newSample = midiMap.pitchshift(88)
