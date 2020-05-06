@@ -1,5 +1,5 @@
-import numpy as np
 import librosa as lr
+import numpy as np
 
 class Map():
     sample = None

@@ -94,16 +94,17 @@ def main():
                         #if the user chooses to load the selected sample to MIDI device
                         elif(2 == selectedSampleChoice):
                             rate, sample = audio.load(filename)
-                            midiIn, midiOut = midiDevice.midiSetup()
-                            print("Press key to map sample to: ")
-                            startNote = midiDevice.getStartNote(midiIn, midiOut)
-                            print("\n StartNote: MIDI note", startNote)
+                            #midiIn, midiOut = midiDevice.midiSetup()
+                            #print("Press key to map sample to: ")
+                            #startNote = midiDevice.getStartNote(midiIn, midiOut)
+                            #print("\n StartNote: MIDI note", startNote)
+                            startNote = int(input("Enter start note: "))
                             midiMap = Map(startNote, sample, rate)
-                            midiDevice.playMIDI(midiIn, midiOut)
-                            #newSample = midiMap.pitchshift(88)
+                            #midiDevice.playMIDI(midiIn, midiOut)
+                            newSample = midiMap.pitchshift(88)
                             #sanity check
-                            #audio.play(sample)
-                            #audio.play(newSample)
+                            audio.play(sample)
+                            audio.play(newSample)
                             print("\n***Sample loaded***")
 
                         #if the user chooses to delete the selected sample
