@@ -2,7 +2,6 @@ from AudioDevice import AudioDevice, Util
 from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice
-import time
 
 def main():
     audio = AudioDevice()
@@ -94,13 +93,12 @@ def main():
                         #if the user chooses to load the selected sample to MIDI device
                         elif(2 == selectedSampleChoice):
                             rate, sample = audio.load(filename)
-                            #midiIn, midiOut = midiDevice.midiSetup()
-                            #print("Press key to map sample to: ")
-                            #startNote = midiDevice.getStartNote(midiIn, midiOut)
-                            #print("\n StartNote: MIDI note", startNote)
-                            startNote = int(input("Enter start note: "))
+                            midiIn, midiOut = midiDevice.midiSetup()
+                            print("Press key to map sample to: ")
+                            startNote = midiDevice.getStartNote(midiIn, midiOut)
+                            print("\n StartNote: MIDI note", startNote)
                             midiMap = Map(startNote, sample, rate)
-                            #midiDevice.playMIDI(midiIn, midiOut)
+                            midiDevice.playMIDI(midiIn, midiOut)
                             newSample = midiMap.pitchshift(88)
                             #sanity check
                             audio.play(sample)

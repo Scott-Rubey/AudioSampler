@@ -1,5 +1,5 @@
 import librosa as lr
-import numpy as np
+import pyrubberband as prb
 
 class Map():
     sample = None
@@ -29,4 +29,5 @@ class Map():
     def pitchshift(self, n):
         note = n - self.startNote
         return lr.effects.pitch_shift(self.sample, 48000, note)
+        #return prb.pitch_shift(self.sample, 48000, note)
 
