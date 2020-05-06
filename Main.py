@@ -98,10 +98,10 @@ def main():
                             startNote = midiDevice.getStartNote(midiIn, midiOut)
                             print("\n StartNote: MIDI note", startNote)
                             midiMap = Map(startNote, sample, rate)
-                            midiDevice.playMIDI(midiIn, midiOut)
-                            newSample = midiMap.pitchshift(88)
+                            midiDevice.playMIDI(midiIn, midiOut, midiMap, audio)
+                            #newSample = midiMap.pitchshift(88)
                             #sanity check
-                            audio.play(sample)
+                            #audio.play(sample)
                             audio.play(newSample)
                             print("\n***Sample loaded***")
 

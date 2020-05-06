@@ -6,7 +6,6 @@ import time
 from rtmidi.midiutil import open_midiinput, open_midioutput
 
 class MIDIdevice:
-
     def midiSetup(self):
         log = logging.getLogger('midiin_poll')
         logging.basicConfig(level=logging.DEBUG)
@@ -29,7 +28,7 @@ class MIDIdevice:
 
         return midiin, midiout
 
-    def playMIDI(self, midiin, midiout):
+    def playMIDI(self, midiin, midiout, midiMap, audio):
         print("\n\nReady for midi controller input. Press Control-C to exit.")
         try:
             timer = round(time.time(), 3)
@@ -41,6 +40,8 @@ class MIDIdevice:
 
                     if message[2] != 0:  # sending note on event:
                         midiout.send_message(message)
+                        note = midiMap.pitchshift(message[1])
+                        audio.play(note)
                         # ### sanity check to confirm input
                         print(message, deltatime)
 

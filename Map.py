@@ -1,5 +1,9 @@
 import librosa as lr
 import pyrubberband as prb
+import os
+
+os.environ["NUMBA_DEBUG"] = str(0)
+os.environ["NUMBA_WARNINGS"] = str(0)
 
 class Map():
     sample = None
