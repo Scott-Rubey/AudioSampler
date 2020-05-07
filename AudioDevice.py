@@ -30,7 +30,7 @@ class AudioDevice:
 
     def play(self, sample):
         sd.play(sample, self.sampleRate)
-        sd.wait()
+        #sd.wait()
 
     def save(self, sample, filename):
         fullFileName = 'SampleLibrary/' + filename + '.wav'

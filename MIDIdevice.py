@@ -28,39 +28,6 @@ class MIDIdevice:
 
         return midiin, midiout
 
-    def playMIDI(self, midiin, midiout, midiMap, audio):
-        print("\n\nReady for midi controller input. Press Control-C to exit.")
-        try:
-            timer = round(time.time(), 3)
-            while True:
-                msg = midiin.get_message()
-                if msg:
-                    message, deltatime = msg
-                    timer += deltatime
-
-                    if message[2] != 0:  # sending note on event:
-                        midiout.send_message(message)
-                        note = midiMap.pitchshift(message[1])
-                        audio.play(note)
-                        # ### sanity check to confirm input
-                        print(message, deltatime)
-
-                    else:  # sending note off event:
-                        message[0] = 128
-                        midiout.send_message(message)
-                        # ### sanity check to confirm input
-                        print(message, deltatime)
-
-                time.sleep(0.001)
-        except KeyboardInterrupt:
-            print('')
-        finally:
-            print("Exit.")
-            midiin.close_port()
-            midiout.close_port()
-            del midiin
-            del midiout
-
     def getStartNote(self, midiin, midiout):
         message = [0]
         received = False
@@ -81,11 +48,47 @@ class MIDIdevice:
 
         return startNote
 
-""" # Main for testing purposes 
-if __name__ == "__main__":
-    pass
-    midiDevice = MIDIdevice()
-    midiIn, midiOut = midiDevice.midiSetup()
-    midiDevice.playMIDI(midiIn, midiOut)
-"""
-"""Adapted from rtmidi tutorial midiin_poll.py."""
+    def playSound(self, midiin, midiout, midiMap, audio):
+        print("\nLoading sample to MIDI device...")
+
+        #map samples to MIDI notes
+        kybdRange = range(21, 108)
+        pitchShftdSmpls = [midiMap.pitchshift(n) for n in kybdRange]
+        keys = kybdRange
+        keySound = dict(zip(keys, pitchShftdSmpls))
+        isPlaying = {k: False for k in keys}
+
+        print("\nReady for midi controller input. Press Control-C to exit.")
+
+        try:
+            while True:
+                startTime = time.time()
+                msg = midiin.get_message()
+                if msg:
+                    message, deltatime = msg
+                    key = message[1]
+
+                    #if key is pressed
+                    if message[0] == 144:
+                        if(key in keySound.keys()) and (not isPlaying[key]):
+                            endTime = time.time()
+                            audio.play(keySound[key])
+                            isPlaying[key] = True
+
+                            #debug
+                            #print("MIDI input time: ", endTime - startTime)
+
+                    #if key is released
+                    elif message[0] == 128 and key in keySound.keys():
+                        #***audio.stopPlaying?***
+                        isPlaying[key] = False
+
+        except KeyboardInterrupt:
+            print('')
+        finally:
+            print("Exit.")
+            midiin.close_port()
+            midiout.close_port()
+            del midiin
+            del midiout
+
