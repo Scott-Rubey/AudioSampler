@@ -1,7 +1,5 @@
 import pyrubberband as prb
 import librosa as lr
-import numpy as np
-import time
 
 class Map():
     sample = None

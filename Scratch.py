@@ -61,3 +61,30 @@ def playSound(self, sample):
             index += self.bufferSize
             data = np.array(sample[:self.bufferSize])
             np.append(test, data)
+
+            '''
+            startTime = time.time()
+            sampConvert = np.empty(sample.shape)
+            np.append(sampConvert, sample).tobytes()
+            sampleLen = len(sampConvert)
+
+            p = pyaudio.PyAudio()
+            stream = p.open(format=pyaudio.paFloat32,
+                            channels=1, rate=48000, output=True)
+
+            for i in range(0, sampleLen, self.bufferSize):
+                try:
+                    stream.write(
+                        sample[i:min(i + self.bufferSize, sampleLen)],
+                        exception_on_underflow=True
+                    )
+                except OSError as exc:
+                    print(exc, file = sys.stderr)
+                    exit(1)
+
+            stream.stop_stream()
+            stream.close()
+            p.terminate()
+            endTime = time.time()
+            print("Play time: ", endTime - startTime)
+            '''

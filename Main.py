@@ -2,7 +2,6 @@ from AudioDevice import AudioDevice, Util
 from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice
-import wave
 
 def main():
     audio = AudioDevice()
@@ -49,15 +48,11 @@ def main():
                 elif(2 == samplingChoice):
                     rate, sample = audio.load(filename)
                     midiIn, midiOut = midiDevice.midiSetup()
-                    midiDevice.playMIDI(midiIn, midiOut)
                     print("Press key to map sample to: ")
                     startNote = midiDevice.getStartNote(midiIn, midiOut)
-                    print("Start note: ", startNote[0])
+                    print("\n StartNote: MIDI note", startNote)
                     midiMap = Map(startNote, sample, rate)
-                    #newSample = midiMap.pitchshift(64)
-                    #sanity check
-                    #audio.play(sample)
-                    #audio.play(newSample)
+                    midiDevice.playSound(midiIn, midiOut, midiMap, audio)
                     print("\n***Sample loaded***")
 
                 samplingChoice = menu.recSampleMenu()
