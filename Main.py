@@ -2,6 +2,7 @@ from AudioDevice import AudioDevice, Util
 from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice
+import wave
 
 def main():
     audio = AudioDevice()
@@ -52,9 +53,8 @@ def main():
                     print("Press key to map sample to: ")
                     startNote = midiDevice.getStartNote(midiIn, midiOut)
                     print("Start note: ", startNote[0])
-                    #startNote = int(input("Press key to map sample to: "))
                     midiMap = Map(startNote, sample, rate)
-                    newSample = midiMap.pitchshift(64)
+                    #newSample = midiMap.pitchshift(64)
                     #sanity check
                     #audio.play(sample)
                     #audio.play(newSample)

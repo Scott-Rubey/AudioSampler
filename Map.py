@@ -1,9 +1,7 @@
-import librosa as lr
 import pyrubberband as prb
-import os
-
-os.environ["NUMBA_DEBUG"] = str(0)
-os.environ["NUMBA_WARNINGS"] = str(0)
+import librosa as lr
+import numpy as np
+import time
 
 class Map():
     sample = None
@@ -30,8 +28,8 @@ class Map():
 
         return startFreq
 
+    #audio sample must be of type np.ndarray
     def pitchshift(self, n):
         note = n - self.startNote
-        return lr.effects.pitch_shift(self.sample, 48000, note)
-        #return prb.pitch_shift(self.sample, 48000, note)
-
+        return lr.effects.pitch_shift(self.sample, self.rate, note)
+       # return prb.pitch_shift(self.sample, self.rate, note)

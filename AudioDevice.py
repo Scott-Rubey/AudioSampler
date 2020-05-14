@@ -3,10 +3,17 @@ from scipy.io.wavfile import write, read
 import time
 import numpy as np
 import soundfile as sf
+import wave
+import pyaudio
+import sys
 
 class AudioDevice:
     sampleRate = 48000
     channels = 1
+    bufferSize = 2048
+
+    def __init(self):
+        sd.default.latency = 'low'
 
     def record(self):
         def countdown(sec):
@@ -29,8 +36,40 @@ class AudioDevice:
         return audioSamp
 
     def play(self, sample):
+        startTime = time.time()
         sd.play(sample, self.sampleRate)
+        endTime = time.time()
+        #print("Play time: ", endTime - startTime)
+        '''
+        startTime = time.time()
+        sampConvert = np.empty(sample.shape)
+        np.append(sampConvert, sample).tobytes()
+        sampleLen = len(sampConvert)
+
+        p = pyaudio.PyAudio()
+        stream = p.open(format=pyaudio.paFloat32,
+                        channels=1, rate=48000, output=True)
+
+        for i in range(0, sampleLen, self.bufferSize):
+            try:
+                stream.write(
+                    sample[i:min(i + self.bufferSize, sampleLen)],
+                    exception_on_underflow=True
+                )
+            except OSError as exc:
+                print(exc, file = sys.stderr)
+                exit(1)
+
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+        endTime = time.time()
+        print("Play time: ", endTime - startTime)
+        '''
         #sd.wait()
+
+    def stop(self):
+        sd.stop()
 
     def save(self, sample, filename):
         fullFileName = 'SampleLibrary/' + filename + '.wav'
@@ -39,7 +78,8 @@ class AudioDevice:
     def load(self, filename):
         sRate, source = read('SampleLibrary/' + filename)
 
-        audSamp = np.array(source.astype(np.float64))
+#        audSamp = np.array(source.astype(np.float64))
+        audSamp = np.array(source.astype(np.float32))
         scaledSamp = audSamp * (2 ** -15)
 
         return sRate, scaledSamp

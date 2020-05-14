@@ -4,6 +4,7 @@ import logging
 import sys
 import time
 from rtmidi.midiutil import open_midiinput, open_midioutput
+import sounddevice as sd
 
 class MIDIdevice:
     def midiSetup(self):
@@ -52,6 +53,9 @@ class MIDIdevice:
         print("\nLoading sample to MIDI device...")
 
         #map samples to MIDI notes
+        notemap = set()
+        keymap = dict()
+
         kybdRange = range(21, 108)
         pitchShftdSmpls = [midiMap.pitchshift(n) for n in kybdRange]
         keys = kybdRange
@@ -62,7 +66,6 @@ class MIDIdevice:
 
         try:
             while True:
-                startTime = time.time()
                 msg = midiin.get_message()
                 if msg:
                     message, deltatime = msg
@@ -71,16 +74,17 @@ class MIDIdevice:
                     #if key is pressed
                     if message[0] == 144:
                         if(key in keySound.keys()) and (not isPlaying[key]):
-                            endTime = time.time()
+                            start = time.time()
                             audio.play(keySound[key])
+                            end = time.time()
                             isPlaying[key] = True
-
-                            #debug
-                            #print("MIDI input time: ", endTime - startTime)
+                            notemap.add(keySound[key])
+                        #print("\nTime: ", end - start)
 
                     #if key is released
                     elif message[0] == 128 and key in keySound.keys():
                         #***audio.stopPlaying?***
+                        audio.stop()
                         isPlaying[key] = False
 
         except KeyboardInterrupt:
@@ -92,3 +96,5 @@ class MIDIdevice:
             del midiin
             del midiout
 
+    def mix(self, notemap):
+        for note in set(notemap):

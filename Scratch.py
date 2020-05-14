@@ -34,7 +34,30 @@ def playSound(self, sample):
     keySound = dict(zip(keys, sounds))
     isPlaying = {k: False for k in keys}
 
+
+    #trying to push samples to the speakers...pyaudio wants bytes, instead
+    p = pyaudio.PyAudio()
+    stream = p.open(format=pyaudio.paFloat32,
+                    channels=1, rate=48000, output=True)
+    data = np.array(sample[:self.bufferSize])
+    frames = sample.size
+    index = 0
+    test = np.array([])
+
+    stream.start_stream()
+
     while True:
         try:
             pass
             #depends on what midi library is used
+
+        while index < frames:
+            try:
+                stream.write(data, exception_on_underflow=True)
+            except OSError as exc:
+                print(exc)
+                exit(1)
+
+            index += self.bufferSize
+            data = np.array(sample[:self.bufferSize])
+            np.append(test, data)
