@@ -59,8 +59,6 @@ class MIDIdevice:
         sound = sndarray.make_sound(pitchShftdSmpls[69])
         sound.play()
 
-        #audio.play(pitchShftdSmpls[69])
-
         keys = kybdRange
         sounds = map(sndarray.make_sound, pitchShftdSmpls)  #***does this appropriately make a sound object?
         keySound = dict(zip(keys, sounds))
@@ -78,13 +76,11 @@ class MIDIdevice:
                     #if key is pressed
                     if message[0] == 144:
                         if(key in keySound.keys()) and (not isPlaying[key]):
-                            #audio.play(keySound[key])
-                            keySound[key].play(fade_ms=50)
+                            keySound[key].play()
                             isPlaying[key] = True
 
                     #if key is released
                     elif message[0] == 128 and key in keySound.keys():
-                        #audio.stop()
                         keySound[key].fadeout(50)
                         isPlaying[key] = False
 
