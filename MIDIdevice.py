@@ -56,8 +56,6 @@ class MIDIdevice:
         kybdRange = range(21, 109)
         pitchShftdSmpls = [midiMap.pitchshift(n) for n in kybdRange]
         mixer.init(48000, -16, 1, 2048)
-        sound = sndarray.make_sound(pitchShftdSmpls[69])
-        sound.play()
 
         keys = kybdRange
         sounds = map(sndarray.make_sound, pitchShftdSmpls)  #***does this appropriately make a sound object?
