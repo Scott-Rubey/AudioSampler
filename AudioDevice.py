@@ -2,6 +2,7 @@ import sounddevice as sd
 from scipy.io.wavfile import write, read
 import time
 import numpy as np
+import librosa
 
 class AudioDevice:
     sampleRate = 48000
@@ -12,6 +13,19 @@ class AudioDevice:
         sd.default.latency = 'low'
 
     def record(self):
+        def trimSamp(sample):
+            samp = np.array(sample.astype(np.float32))
+            scaledSamp = samp * (2 ** -15)
+
+            # remove silence at the beginning and end of the sample
+            trimmedSamp, _ = librosa.effects.trim(scaledSamp, 40)
+
+            # rescale to int16
+            rescaledSamp = trimmedSamp * (2 ** 15)
+            finalSamp = np.array(rescaledSamp.astype(np.int16))
+
+            return finalSamp
+
         def countdown(sec):
             while(sec > 0):
                 print(sec, end = '\n')
@@ -27,15 +41,16 @@ class AudioDevice:
         sd.wait()
 
         #normalize the sample
-        audioSamp = audioSamp / np.max(np.abs(audioSamp), axis = 0)
+        samp = trimSamp(audioSamp)
+        finalSamp = samp / np.max(np.abs(samp), axis = 0)
 
-        return audioSamp
+        return finalSamp
 
     def play(self, sample):
         sd.play(sample, self.sampleRate)
         #sd.wait()
 
-    def stop(self):
+    def stop(self, sample):
         sd.stop()
 
     def save(self, sample, filename):

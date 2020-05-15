@@ -1,5 +1,6 @@
 import pyrubberband as prb
 import librosa as lr
+import numpy as np
 
 class Map():
     sample = None
@@ -26,8 +27,11 @@ class Map():
 
         return startFreq
 
-    #audio sample must be of type np.ndarray
+    #librosa requires sample to be of type float32 np.ndarray
+    #pygame.mixer requires int16 np.ndarray
     def pitchshift(self, n):
         note = n - self.startNote
-        return lr.effects.pitch_shift(self.sample, self.rate, note)
+        sound = np.int16(lr.effects.pitch_shift(self.sample, self.rate, note) * (2**15))
+
+        return sound
        # return prb.pitch_shift(self.sample, self.rate, note)

@@ -3,6 +3,7 @@ from __future__ import print_function
 import logging
 import sys
 from rtmidi.midiutil import open_midiinput, open_midioutput
+from pygame import mixer, sndarray
 
 class MIDIdevice:
     def midiSetup(self):
@@ -51,10 +52,18 @@ class MIDIdevice:
         print("\nLoading sample to MIDI device...")
 
         #map samples to MIDI notes
-        kybdRange = range(21, 108)
+        #the following is adapted from https://github.com/Zulko/pianoputer/blob/master/pianoputer.py
+        kybdRange = range(21, 109)
         pitchShftdSmpls = [midiMap.pitchshift(n) for n in kybdRange]
+        mixer.init(48000, -16, 1, 2048)
+        sound = sndarray.make_sound(pitchShftdSmpls[69])
+        sound.play()
+
+        #audio.play(pitchShftdSmpls[69])
+
         keys = kybdRange
-        keySound = dict(zip(keys, pitchShftdSmpls))
+        sounds = map(sndarray.make_sound, pitchShftdSmpls)  #***does this appropriately make a sound object?
+        keySound = dict(zip(keys, sounds))
         isPlaying = {k: False for k in keys}
 
         print("\nReady for midi controller input. Press Control-C to exit.")
@@ -69,12 +78,14 @@ class MIDIdevice:
                     #if key is pressed
                     if message[0] == 144:
                         if(key in keySound.keys()) and (not isPlaying[key]):
-                            audio.play(keySound[key])
+                            #audio.play(keySound[key])
+                            keySound[key].play(fade_ms=50)
                             isPlaying[key] = True
 
                     #if key is released
                     elif message[0] == 128 and key in keySound.keys():
-                        audio.stop()
+                        #audio.stop()
+                        keySound[key].fadeout(50)
                         isPlaying[key] = False
 
         except KeyboardInterrupt:
