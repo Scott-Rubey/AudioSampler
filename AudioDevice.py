@@ -48,7 +48,6 @@ class AudioDevice:
 
     def play(self, sample):
         sd.play(sample, self.sampleRate)
-        #sd.wait()
 
     def stop(self, sample):
         sd.stop()
