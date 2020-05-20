@@ -9,6 +9,7 @@ class AudioDevice:
     channels = 1
 
     def record(self):
+        '''
         def trimSamp(sample):
             samp = np.array(sample.astype(np.float32))
             scaledSamp = samp * (2 ** -15)
@@ -21,6 +22,7 @@ class AudioDevice:
             finalSamp = np.array(rescaledSamp.astype(np.int16))
 
             return finalSamp
+        '''
 
         def countdown(sec):
             while(sec > 0):
@@ -39,7 +41,7 @@ class AudioDevice:
         #normalize the sample
         #samp = trimSamp(audioSamp)
         samp = audioSamp
-        finalSamp = samp / np.max(np.abs(samp), axis = 0)
+        finalSamp = samp / (np.max(np.abs(samp), axis = 0) / 0.95)
 
         return finalSamp
 
