@@ -3,6 +3,8 @@ from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice
 
+global filename
+
 def main():
     audio = AudioDevice()
     menu = Util()
@@ -46,7 +48,7 @@ def main():
 
                 #if user chooses to play the recorded sample with a MIDI device
                 elif(2 == samplingChoice):
-                    rate, sample = audio.load(filename)
+                    rate, sample = audio.load(filename + '.wav')
                     midiIn, midiOut = midiDevice.midiSetup()
                     print("Press key to map sample to: ")
                     startNote = midiDevice.getStartNote(midiIn, midiOut)

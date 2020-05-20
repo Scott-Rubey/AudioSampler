@@ -7,8 +7,9 @@ from pygame import mixer, sndarray
 
 class MIDIdevice:
     def midiSetup(self):
-        log = logging.getLogger('midiin_poll')
-        logging.basicConfig(level=logging.DEBUG)
+        #debug
+        #log = logging.getLogger('midiin_poll')
+        #logging.basicConfig(level=logging.DEBUG)
 
         # Prompts user for MIDI input port, unless a valid port number or name
         # is given as the first argument on the command line.

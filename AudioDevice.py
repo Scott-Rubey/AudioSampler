@@ -7,10 +7,6 @@ import librosa
 class AudioDevice:
     sampleRate = 48000
     channels = 1
-    bufferSize = 2048
-
-    def __init(self):
-        sd.default.latency = 'low'
 
     def record(self):
         def trimSamp(sample):
@@ -41,7 +37,8 @@ class AudioDevice:
         sd.wait()
 
         #normalize the sample
-        samp = trimSamp(audioSamp)
+        #samp = trimSamp(audioSamp)
+        samp = audioSamp
         finalSamp = samp / np.max(np.abs(samp), axis = 0)
 
         return finalSamp
@@ -58,11 +55,7 @@ class AudioDevice:
 
     def load(self, filename):
         sRate, source = read('SampleLibrary/' + filename)
-
-        audSamp = np.array(source.astype(np.float32))
-        scaledSamp = audSamp * (2 ** -15)
-
-        return sRate, scaledSamp
+        return sRate, source
 
 class Util:
     def mainMenu(self):
