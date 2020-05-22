@@ -16,6 +16,7 @@ class Map():
         self.startNote = startNote
         self.startFreq = Map.setStartFreq(self, self.startNote)
 
+    #no current use for this function...saving in case it comes into play later
     def setStartFreq(self, startNote):
         #difference between input note and A440, which maps to 69 on a MIDI keyboard
         noteDiff = startNote - self.midiA440

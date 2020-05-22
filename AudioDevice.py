@@ -52,7 +52,15 @@ class AudioDevice:
         sd.stop()
 
     def save(self, sample, filename):
-        fullFileName = 'SampleLibrary/' + filename + '.wav'
+        newFilename = None
+        substr = '.wav'
+
+        if filename.endswith(substr):
+            newFilename = filename[:-(len(substr))]
+        else:
+            newFilename = filename
+
+        fullFileName = 'SampleLibrary/' + newFilename + '.wav'
         write(fullFileName, self.sampleRate, sample)
 
     def load(self, filename):

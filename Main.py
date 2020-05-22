@@ -3,8 +3,6 @@ from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice
 
-global filename
-
 def main():
     audio = AudioDevice()
     menu = Util()
@@ -99,8 +97,8 @@ def main():
 
                         #if the user chooses to delete the selected sample
                         elif(3 == selectedSampleChoice):
-                            library.delSample(sampNum)
-                            print("\n***Sample deleted from library***")
+                            filename = library.delSample(sampNum)
+                            print("\n***" + filename + " deleted from library***")
                             sample = None
 
                         selectedSampleChoice = menu.selectSampleMenu()
@@ -108,8 +106,8 @@ def main():
                 #if user chooses to delete a particular sample
                 elif(3 == libraryChoice):
                     sampNum = int(input("\nEnter number of sample to be deleted: "))
-                    library.delSample(sampNum)
-                    print("\n***Sample deleted from library***")
+                    filename = library.delSample(sampNum)
+                    print("\n***" + filename + " deleted from library***")
 
                 libraryChoice = menu.sampleLibMenu()
 
