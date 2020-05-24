@@ -9,20 +9,21 @@ class AudioDevice:
     channels = 1
 
     def record(self):
-        '''
         def trimSamp(sample):
             samp = np.array(sample.astype(np.float32))
             scaledSamp = samp * (2 ** -15)
 
             # remove silence at the beginning and end of the sample
-            trimmedSamp, _ = librosa.effects.trim(scaledSamp, 40)
+            trimmedSamp, _ = librosa.effects.trim(scaledSamp, 60)
+
+            print("Sample: ", librosa.get_duration(scaledSamp))
+            print("Trimmed Sample: ", librosa.get_duration(trimmedSamp))
 
             # rescale to int16
             rescaledSamp = trimmedSamp * (2 ** 15)
             finalSamp = np.array(rescaledSamp.astype(np.int16))
 
             return finalSamp
-        '''
 
         def countdown(sec):
             while(sec > 0):
@@ -39,17 +40,14 @@ class AudioDevice:
         sd.wait()
 
         #normalize the sample
-        #samp = trimSamp(audioSamp)
-        samp = audioSamp
+        samp = trimSamp(audioSamp)
+        #samp = audioSamp
         finalSamp = samp / (np.max(np.abs(samp), axis = 0) / 0.95)
 
         return finalSamp
 
     def play(self, sample):
         sd.play(sample, self.sampleRate)
-
-    def stop(self, sample):
-        sd.stop()
 
     def save(self, sample, filename):
         newFilename = None

@@ -28,9 +28,3 @@ class TestDelSample(TestSampLib):
             self.assertLessEqual(self.library.lib.size, numSamps - 1)
         else:
             self.assertEqual(self.library.lib.size, 0)
-
-    #problems with this one...
-    def test_library_size_should_not_allow_neg_size(self):
-        self.library.delSample(0)
-        self.assertGreaterEqual(self.library.lib.size, 0)
-

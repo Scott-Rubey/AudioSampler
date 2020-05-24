@@ -1,5 +1,8 @@
 from unittest import TestCase
 from Map import Map
+import pyrubberband as prb
+import numpy as np
+from scipy.io.wavfile import write, read
 
 class TestMap(TestCase):
     def setUp(self):
@@ -18,3 +21,4 @@ class TestInit(TestMap):
 class TestStartFreq(TestMap):
     def test_StartFreq_calculation(self):
         self.assertEqual(self.keymap.startFreq, 440)
+
