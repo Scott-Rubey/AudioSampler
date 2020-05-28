@@ -2,7 +2,7 @@
 from __future__ import print_function
 import logging
 import sys
-from rtmidi.midiutil import open_midiinput, open_midioutput
+#from rtmidi.midiutil import open_midiinput, open_midioutput
 from pygame import mixer, sndarray
 
 class MIDIdevice:

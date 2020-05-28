@@ -1,4 +1,5 @@
-from AudioDevice import AudioDevice, Util
+from AudioDevice import AudioDevice
+from Util import Util
 from SampLib import sampLib
 from Map import Map
 from MIDIdevice import MIDIdevice

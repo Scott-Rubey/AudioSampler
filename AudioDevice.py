@@ -3,17 +3,19 @@ from scipy.io.wavfile import write, read
 import time
 import numpy as np
 import librosa
+import os
 
 class AudioDevice:
     sampleRate = 48000
     channels = 1
 
     def record(self):
+        '''
         def trimSamp(sample):
             samp = np.array(sample.astype(np.float32))
             scaledSamp = samp * (2 ** -15)
 
-            # remove silence at the beginning and end of the sample
+            #remove silence at the beginning and end of the sample
             trimmedSamp, _ = librosa.effects.trim(scaledSamp, 60)
 
             print("Sample: ", librosa.get_duration(scaledSamp))
@@ -24,6 +26,7 @@ class AudioDevice:
             finalSamp = np.array(rescaledSamp.astype(np.int16))
 
             return finalSamp
+        '''
 
         def countdown(sec):
             while(sec > 0):
@@ -40,8 +43,8 @@ class AudioDevice:
         sd.wait()
 
         #normalize the sample
-        samp = trimSamp(audioSamp)
-        #samp = audioSamp
+        #samp = AudioDevice.trimSamp(self, audioSamp)
+        samp = audioSamp
         finalSamp = samp / (np.max(np.abs(samp), axis = 0) / 0.95)
 
         return finalSamp
@@ -58,6 +61,9 @@ class AudioDevice:
         else:
             newFilename = filename
 
+        if not os.path.exists('SampleLibrary/'):
+            os.makedirs('SampleLibrary/')
+
         fullFileName = 'SampleLibrary/' + newFilename + '.wav'
         write(fullFileName, self.sampleRate, sample)
 
@@ -65,78 +71,3 @@ class AudioDevice:
         sRate, source = read('SampleLibrary/' + filename)
         return sRate, source
 
-class Util:
-    def mainMenu(self):
-        menuOption = 0
-
-        while(1 > menuOption or 3 < menuOption):
-            print("\nMain Menu:\n")
-            print("1 - Record Sample")
-            print("2 - Sample Library")
-            print("3 - Exit Program")
-
-            menuOption = int(input("\nEnter menu option here: "))
-            if(1 > menuOption or 3 < menuOption):
-                print("\n***Option out of range***")
-
-        return menuOption
-
-    def recSampleMenu(self):
-        menuOption = 0
-
-        while(1 > menuOption or 3 < menuOption):
-            print("\nSampling Menu:\n")
-            print("1 - Start recording")
-            print("2 - Play sample with MIDI device")
-            print("3 - Return to Main Menu")
-
-            menuOption = int(input("\nEnter menu option here: "))
-            if(1 > menuOption or 3 < menuOption):
-                print("\n***Option out of range***")
-
-        return menuOption
-
-    def newSampleMenu(self):
-        menuOption = 0
-
-        while(1 > menuOption or 3 < menuOption):
-            print("\n1 - Preview sample")
-            print("2 - Save sample")
-            print("3 - Discard sample")
-
-            menuOption = int(input("\nEnter menu option here: "))
-            if(1 > menuOption or 3 < menuOption):
-                print("\n***Option out of range***")
-
-        return menuOption
-
-    def sampleLibMenu(self):
-        menuOption = 0
-
-        while(1 > menuOption or 4 < menuOption):
-            print("\nSample Library Menu:\n")
-            print("1 - Display sample list")
-            print("2 - Select sample")
-            print("3 - Delete sample")
-            print("4 - Return to Main Menu")
-
-            menuOption = int(input("\nEnter menu option here: "))
-            if(1 > menuOption or 4 < menuOption):
-                print("\n***Option out of range***")
-
-        return menuOption
-
-    def selectSampleMenu(self):
-        menuOption = 0
-
-        while(1 > menuOption or 4 < menuOption):
-            print("\n1 - Preview current sample")
-            print("2 - Load current sample to MIDI device")
-            print("3 - Delete current sample")
-            print("4 - Return to previous menu")
-
-            menuOption = int(input("\nEnter menu option here: "))
-            if(1 > menuOption or 4 < menuOption):
-                print("\n***Option out of range***")
-
-        return menuOption
