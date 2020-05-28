@@ -9,6 +9,7 @@ def main():
     menu = Util()
     library = sampLib()
     midiDevice = MIDIdevice()
+    sample = None
 
     choice = menu.mainMenu()
 
@@ -17,7 +18,14 @@ def main():
 
         #if user chooses to view sample recording options
         if(1 == choice):
-            samplingChoice = menu.recSampleMenu()
+            proceed = False
+
+            while(proceed == False):
+                samplingChoice = menu.recSampleMenu()
+                if(sample == None and samplingChoice == 2):
+                    print("***Error: you must first record a sample in order to play it with a MIDI device***")
+                else:
+                    proceed = True
 
             #while user chooses not to exit the sample recording menu
             while(3 != samplingChoice):
