@@ -1,7 +1,7 @@
 from AudioDevice import AudioDevice
 from Util import Util
 from SampLib import sampLib
-from Map import Map
+from KeyboardMap import KeyboardMap
 from MIDIdevice import MIDIdevice
 
 def main():
@@ -60,8 +60,8 @@ def main():
                     print("Press key to map sample to: ")
                     startNote = midiDevice.getStartNote(midiIn, midiOut)
                     print("\n StartNote: MIDI note", startNote)
-                    midiMap = Map(startNote, sample, rate)
-                    midiDevice.playSound(midiIn, midiOut, midiMap, audio)
+                    keyMap = KeyboardMap(startNote, sample, rate)
+                    midiDevice.playSound(midiIn, midiOut, keyMap, audio)
                     print("\n***Sample loaded***")
 
                 samplingChoice = menu.recSampleMenu()
@@ -101,8 +101,8 @@ def main():
                             print("Press key to map sample to: ")
                             startNote = midiDevice.getStartNote(midiIn, midiOut)
                             print("\n StartNote: MIDI note", startNote)
-                            midiMap = Map(startNote, sample, rate)
-                            midiDevice.playSound(midiIn, midiOut, midiMap, audio)
+                            keyMap = KeyboardMap(startNote, sample, rate)
+                            midiDevice.playSound(midiIn, midiOut, keyMap, audio)
 
                         #if the user chooses to delete the selected sample
                         elif(3 == selectedSampleChoice):

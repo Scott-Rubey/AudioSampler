@@ -1,12 +1,12 @@
 from unittest import TestCase
-from Map import Map
+from KeyboardMap import KeyboardMap
 import pyrubberband as prb
 import numpy as np
 from scipy.io.wavfile import write, read
 
 class TestMap(TestCase):
     def setUp(self):
-        self.keymap = Map(69, None, 44100)
+        self.keymap = KeyboardMap(69, None, 44100)
 
 class TestInit(TestMap):
     def test_startNote_initializes_properly(self):

@@ -1,4 +1,3 @@
-# MIDIdevice.py
 from __future__ import print_function
 import logging
 import sys
@@ -7,10 +6,6 @@ from pygame import mixer, sndarray
 
 class MIDIdevice:
     def midiSetup(self):
-        #debug
-        #log = logging.getLogger('midiin_poll')
-        #logging.basicConfig(level=logging.DEBUG)
-
         # Prompts user for MIDI input port, unless a valid port number or name
         # is given as the first argument on the command line.
         # API backend defaults to ALSA on Linux.
@@ -59,7 +54,7 @@ class MIDIdevice:
         mixer.init(48000, -16, 1, 2048)
 
         keys = kybdRange
-        sounds = map(sndarray.make_sound, pitchShftdSmpls)  #***does this appropriately make a sound object?
+        sounds = map(sndarray.make_sound, pitchShftdSmpls)
         keySound = dict(zip(keys, sounds))
         isPlaying = {k: False for k in keys}
 

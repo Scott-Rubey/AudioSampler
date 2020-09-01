@@ -23,12 +23,12 @@ while True:
 
 #better yet...
 #adapted from https://github.com/Zulko/pianoputer/blob/master/pianoputer.py
-from Map import Map
+from KeyboardMap import KeyboardMap
 from AudioDevice import AudioDevice
 
 def playSound(self, sample):
     kybdRange = range(21, 108)
-    pitchShftdSmpls = [Map.pitchshift(self, n) for n in kybdRange]
+    pitchShftdSmpls = [KeyboardMap.pitchshift(self, n) for n in kybdRange]
     keys = kybdRange
     sounds = map(AudioDevice.play(), pitchShftdSmpls)  #problems here, perhaps
     keySound = dict(zip(keys, sounds))

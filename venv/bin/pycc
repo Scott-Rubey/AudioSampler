@@ -1,0 +1,3 @@
+#!/Users/srubey/PycharmProjects/CS510Sound/Project/venv/bin/python
+from numba.pycc import main
+main()
